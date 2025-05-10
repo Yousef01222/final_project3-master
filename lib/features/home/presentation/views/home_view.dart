@@ -32,7 +32,7 @@ class _HomeViewState extends State<HomeView> {
     const HomeViewBody(),
     const ExploreTranslatorsView(),
     const CompanyView(),
-    ChatView(),
+    const ChatView(),
     const UserAccountView(),
   ];
 

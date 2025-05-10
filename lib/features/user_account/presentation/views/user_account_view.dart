@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -49,15 +50,15 @@ class _UserAccountViewState extends State<UserAccountView> {
           setState(() {
             _profileImage = file;
           });
-          print('Loaded profile image from local storage: $imagePath');
+          log('Loaded profile image from local storage: $imagePath');
         } else {
-          print('Profile image file does not exist: $imagePath');
+          log('Profile image file does not exist: $imagePath');
         }
       } else {
-        print('No profile image path found in preferences');
+        log('No profile image path found in preferences');
       }
     } catch (e) {
-      print('Error loading profile image: $e');
+      log('Error loading profile image: $e');
     }
   }
 
@@ -70,19 +71,13 @@ class _UserAccountViewState extends State<UserAccountView> {
         userProfile.profileImageUrl!.isNotEmpty;
 
     if (hasLocalImage && !hasRemoteImage) {
-      print(
-          'Local image exists but not on server. Will need to upload when backend supports it.');
-      // TODO: Implement server upload when backend is ready
+      log('Local image exists but not on server. Will need to upload when backend supports it.');
     } else if (!hasLocalImage && hasRemoteImage) {
-      print(
-          'Remote image exists but not locally. Downloading is not implemented yet.');
-      // TODO: Implement download functionality if needed
+      log('Remote image exists but not locally. Downloading is not implemented yet.');
     } else if (hasLocalImage && hasRemoteImage) {
-      print(
-          'Both remote and local images exist. Would need comparison logic to determine which is newer.');
-      // TODO: Implement comparison logic
+      log('Both remote and local images exist. Would need comparison logic to determine which is newer.');
     } else {
-      print('No profile image exists locally or remotely.');
+      log('No profile image exists locally or remotely.');
     }
   }
 
@@ -91,7 +86,7 @@ class _UserAccountViewState extends State<UserAccountView> {
       final prefs = await SharedPreferences.getInstance();
       await prefs.setString('profile_image_path', path);
     } catch (e) {
-      print('Error saving profile image path: $e');
+      log('Error saving profile image path: $e');
     }
   }
 
@@ -99,7 +94,7 @@ class _UserAccountViewState extends State<UserAccountView> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text(
+        title: const Text(
           'Profile Photo',
           style: TextStyle(
             fontWeight: FontWeight.bold,
@@ -111,8 +106,9 @@ class _UserAccountViewState extends State<UserAccountView> {
           children: [
             ListTile(
               leading: Container(
-                padding: EdgeInsets.all(8),
+                padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
+                  // ignore: deprecated_member_use
                   color: Colors.blue.withOpacity(0.1),
                   shape: BoxShape.circle,
                 ),
@@ -126,8 +122,9 @@ class _UserAccountViewState extends State<UserAccountView> {
             ),
             ListTile(
               leading: Container(
-                padding: EdgeInsets.all(8),
+                padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
+                  // ignore: deprecated_member_use
                   color: Colors.blue.withOpacity(0.1),
                   shape: BoxShape.circle,
                 ),
@@ -142,8 +139,9 @@ class _UserAccountViewState extends State<UserAccountView> {
             if (_profileImage != null)
               ListTile(
                 leading: Container(
-                  padding: EdgeInsets.all(8),
+                  padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
+                    // ignore: deprecated_member_use
                     color: Colors.red.withOpacity(0.1),
                     shape: BoxShape.circle,
                   ),
@@ -160,6 +158,7 @@ class _UserAccountViewState extends State<UserAccountView> {
 
                   // Show success message
                   if (mounted) {
+                    // ignore: use_build_context_synchronously
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
                         content: Text('Profile picture removed'),
@@ -197,11 +196,6 @@ class _UserAccountViewState extends State<UserAccountView> {
         });
         await _saveProfileImagePath(pickedFile.path);
 
-        // TODO: When backend supports image upload, implement here
-        // For example:
-        // await _uploadProfileImageToServer(pickedFile.path);
-
-        // Show success message
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
@@ -318,6 +312,7 @@ class _UserAccountViewState extends State<UserAccountView> {
         color: Colors.white,
         boxShadow: [
           BoxShadow(
+            // ignore: deprecated_member_use
             color: Colors.black.withOpacity(0.05),
             blurRadius: 10,
             offset: const Offset(0, 2),
@@ -379,6 +374,7 @@ class _UserAccountViewState extends State<UserAccountView> {
                       border: Border.all(color: Colors.white, width: 2),
                       boxShadow: [
                         BoxShadow(
+                          // ignore: deprecated_member_use
                           color: Colors.black.withOpacity(0.1),
                           blurRadius: 4,
                           offset: const Offset(0, 2),
@@ -426,6 +422,7 @@ class _UserAccountViewState extends State<UserAccountView> {
         borderRadius: BorderRadius.circular(15),
         boxShadow: [
           BoxShadow(
+            // ignore: deprecated_member_use
             color: Colors.black.withOpacity(0.05),
             blurRadius: 10,
             offset: const Offset(0, 2),
@@ -505,6 +502,7 @@ class _UserAccountViewState extends State<UserAccountView> {
           Container(
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
+              // ignore: deprecated_member_use
               color: Colors.blue.withOpacity(0.1),
               borderRadius: BorderRadius.circular(12),
             ),
@@ -563,9 +561,9 @@ class _UserAccountViewState extends State<UserAccountView> {
           ),
           elevation: 0,
         ),
-        child: Row(
+        child: const Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
+          children: [
             Icon(Icons.logout, size: 20),
             SizedBox(width: 8),
             Text(

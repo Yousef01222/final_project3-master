@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:grade3/features/home/data/models/jobs_model.dart';
 import 'package:http/http.dart' as http;
@@ -10,9 +11,9 @@ class JobService {
 
     final response = await http.get(Uri.parse(url));
 
-    print('URL: $url');
-    print('Status code: ${response.statusCode}');
-    print('Body: ${response.body}');
+    log('URL: $url');
+    log('Status code: ${response.statusCode}');
+    log('Body: ${response.body}');
 
     if (response.statusCode == 200 || response.statusCode == 201) {
       final decoded = jsonDecode(response.body);

@@ -34,6 +34,7 @@ class TranslatorRow extends StatelessWidget {
                 context,
                 baseFontSize: 13,
               ),
+              // ignore: deprecated_member_use
               color: Colors.black45.withOpacity(0.6),
               fontWeight: FontWeight.w500,
             ),

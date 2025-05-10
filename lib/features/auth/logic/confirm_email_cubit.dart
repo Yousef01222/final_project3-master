@@ -1,7 +1,6 @@
 // lib/cubit/confirm_email_cubit.dart
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grade3/features/auth/data/service/auth_service.dart';
-import 'package:meta/meta.dart';
 
 part 'confirm_email_state.dart';
 

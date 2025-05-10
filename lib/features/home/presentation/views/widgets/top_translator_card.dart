@@ -63,6 +63,7 @@ class TopTranslatorCard extends StatelessWidget {
                           context,
                           baseFontSize: 13,
                         ),
+                        // ignore: deprecated_member_use
                         color: Colors.black26.withOpacity(0.8),
                         fontWeight: FontWeight.w500,
                       ),

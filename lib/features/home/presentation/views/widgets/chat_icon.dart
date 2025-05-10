@@ -21,6 +21,7 @@ class ChatIcon extends StatelessWidget {
           aspectRatio: 1.4,
           child: Container(
             decoration: BoxDecoration(
+              // ignore: deprecated_member_use
               color: Colors.grey.withOpacity(0.2),
               borderRadius: BorderRadius.circular(8),
             ),

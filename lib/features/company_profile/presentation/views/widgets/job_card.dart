@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
@@ -8,7 +9,6 @@ import 'package:grade3/core/utils/app_colors.dart';
 import 'package:grade3/features/company_profile/presentation/views/widgets/row_details_item.dart';
 import 'package:grade3/features/home/data/models/jobs_model.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert';
 
 class JobCard extends StatelessWidget {
   const JobCard({super.key, required this.job});
@@ -76,6 +76,7 @@ class JobCard extends StatelessWidget {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
                 decoration: BoxDecoration(
+                  // ignore: deprecated_member_use
                   color: Colors.blue.withOpacity(0.16),
                   borderRadius: BorderRadius.circular(30),
                 ),
@@ -87,17 +88,22 @@ class JobCard extends StatelessWidget {
               TextButton(
                 onPressed: () async {
                   final success = await applyToJob(context);
+                  // ignore: use_build_context_synchronously
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
-                      content: Text(
-                        success
-                            ? 'Application sent successfully'
-                            : 'Failed to apply',
+                      backgroundColor: Colors.green,
+                      content: Center(
+                        child: Text(
+                          success
+                              ? 'Application sent successfully'
+                              : 'Failed to apply',
+                        ),
                       ),
                     ),
                   );
                 },
                 style: TextButton.styleFrom(
+                  // ignore: deprecated_member_use
                   backgroundColor: Colors.green.withOpacity(0.9),
                   foregroundColor: Colors.white,
                   padding:
@@ -144,13 +150,13 @@ class JobCard extends StatelessWidget {
     );
 
     if (result == null) {
-      print('لم يتم اختيار أي ملف.');
+      log('لم يتم اختيار أي ملف.');
       return false;
     }
 
     String? filePath = result.files.single.path;
     if (filePath == null) {
-      print('لم يتم اختيار ملف صالح.');
+      log('لم يتم اختيار ملف صالح.');
       return false;
     }
 
@@ -171,15 +177,15 @@ class JobCard extends StatelessWidget {
       final response = await request.send();
 
       if (response.statusCode == 201 || response.statusCode == 200) {
-        print('تم التقديم بنجاح');
+        log('تم التقديم بنجاح');
         return true;
       } else {
         final responseBody = await response.stream.bytesToString();
-        print('Apply failed: $responseBody');
+        log('Apply failed: $responseBody');
         return false;
       }
     } catch (e) {
-      print('Error applying: $e');
+      log('Error applying: $e');
       return false;
     }
   }

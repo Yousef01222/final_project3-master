@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:grade3/core/utils/app_colors.dart';
 import 'package:grade3/core/utils/get_responsive_font_size.dart';
-import 'package:grade3/core/utils/get_responsive_icon_size_method.dart';
 
 class CustomChatButton extends StatelessWidget {
   const CustomChatButton({super.key, this.onTap});
@@ -20,17 +19,17 @@ class CustomChatButton extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(
-                Icons.chat,
-                color: Colors.white,
-                size: getResponsiveIconSize(
-                  baseIconSize: 23,
-                  context: context,
-                ),
-              ),
+              // Icon(
+              //   Icons.chat,
+              //   color: Colors.white,
+              //   size: getResponsiveIconSize(
+              //     baseIconSize: 23,
+              //     context: context,
+              //   ),
+              // ),
               const SizedBox(width: 8),
               Text(
-                'Chat Now',
+                'Avilable Jobs',
                 style: TextStyle(
                   fontSize: getResponsiveFontSize(
                     context,

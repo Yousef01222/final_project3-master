@@ -12,9 +12,10 @@ import 'package:grade3/features/auth/presentation/views/sendcode_view.dart';
 import 'package:file_picker/file_picker.dart';
 
 class SignUpView extends StatefulWidget {
-  SignUpView({Key? key}) : super(key: key);
+  const SignUpView({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _SignUpViewState createState() => _SignUpViewState();
 }
 
@@ -75,6 +76,7 @@ class _SignUpViewState extends State<SignUpView> {
               } else {
                 // If not a translator, navigate directly to verification
                 Future.delayed(const Duration(milliseconds: 800), () {
+                  // ignore: use_build_context_synchronously
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (context) =>
@@ -96,12 +98,12 @@ class _SignUpViewState extends State<SignUpView> {
                   content: Text(
                       '${state.errorMessage} (Attempt ${state.currentAttempt}/${state.maxAttempts})'),
                   backgroundColor: Colors.orange,
-                  duration: Duration(seconds: 2),
+                  duration: const Duration(seconds: 2),
                 ),
               );
             } else if (state is TranslatorCreationSuccess) {
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
+                const SnackBar(
                   content: Text('Translator profile created successfully!'),
                   backgroundColor: Colors.green,
                   duration: Duration(seconds: 2),
@@ -109,7 +111,8 @@ class _SignUpViewState extends State<SignUpView> {
               );
 
               // Navigate to verification after successful translator creation
-              Future.delayed(Duration(milliseconds: 800), () {
+              Future.delayed(const Duration(milliseconds: 800), () {
+                // ignore: use_build_context_synchronously
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) =>
@@ -123,12 +126,13 @@ class _SignUpViewState extends State<SignUpView> {
                   content:
                       Text('Error creating translator profile: ${state.error}'),
                   backgroundColor: Colors.red,
-                  duration: Duration(seconds: 3),
+                  duration: const Duration(seconds: 3),
                 ),
               );
 
               // Even if translator creation fails, still navigate to verification
-              Future.delayed(Duration(seconds: 3), () {
+              Future.delayed(const Duration(seconds: 3), () {
+                // ignore: use_build_context_synchronously
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) =>
@@ -143,7 +147,7 @@ class _SignUpViewState extends State<SignUpView> {
 
             return Container(
               width: double.infinity,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
@@ -152,7 +156,7 @@ class _SignUpViewState extends State<SignUpView> {
               ),
               child: SafeArea(
                 child: SingleChildScrollView(
-                  physics: BouncingScrollPhysics(),
+                  physics: const BouncingScrollPhysics(),
                   child: Column(
                     children: [
                       // Header with back button
@@ -161,7 +165,7 @@ class _SignUpViewState extends State<SignUpView> {
                         child: Row(
                           children: [
                             IconButton(
-                              icon: Icon(Icons.arrow_back_ios,
+                              icon: const Icon(Icons.arrow_back_ios,
                                   color: Colors.black87),
                               onPressed: () => Navigator.of(context).pop(),
                             ),
@@ -177,25 +181,26 @@ class _SignUpViewState extends State<SignUpView> {
                                 ),
                               ),
                             ),
-                            SizedBox(width: 48), // Balance the header
+                            const SizedBox(width: 48), // Balance the header
                           ],
                         ),
                       ),
 
-                      SizedBox(height: 24),
+                      const SizedBox(height: 24),
 
                       // Form card
                       Container(
-                        margin: EdgeInsets.fromLTRB(16, 0, 16, 16),
-                        padding: EdgeInsets.all(24),
+                        margin: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                        padding: const EdgeInsets.all(24),
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(20),
                           boxShadow: [
                             BoxShadow(
+                              // ignore: deprecated_member_use
                               color: Colors.black.withOpacity(0.05),
                               blurRadius: 20,
-                              offset: Offset(0, 10),
+                              offset: const Offset(0, 10),
                             ),
                           ],
                         ),
@@ -211,7 +216,7 @@ class _SignUpViewState extends State<SignUpView> {
                                 color: Colors.black87,
                               ),
                             ),
-                            SizedBox(height: 16),
+                            const SizedBox(height: 16),
 
                             // Name field
                             CustomTextField(
@@ -220,7 +225,7 @@ class _SignUpViewState extends State<SignUpView> {
                               hintText: "Enter your full name",
                               isPassword: false,
                             ),
-                            SizedBox(height: 16),
+                            const SizedBox(height: 16),
 
                             // Email field
                             CustomTextField(
@@ -229,7 +234,7 @@ class _SignUpViewState extends State<SignUpView> {
                               hintText: "Enter your email",
                               isPassword: false,
                             ),
-                            SizedBox(height: 16),
+                            const SizedBox(height: 16),
 
                             // Mobile field
                             CustomTextField(
@@ -238,7 +243,7 @@ class _SignUpViewState extends State<SignUpView> {
                               hintText: "Enter your mobile number",
                               isPassword: false,
                             ),
-                            SizedBox(height: 24),
+                            const SizedBox(height: 24),
 
                             // Gender selection - improved UI
                             Text(
@@ -248,7 +253,7 @@ class _SignUpViewState extends State<SignUpView> {
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
-                            SizedBox(height: 10),
+                            const SizedBox(height: 10),
                             Row(
                               children: [
                                 Expanded(
@@ -259,11 +264,13 @@ class _SignUpViewState extends State<SignUpView> {
                                       });
                                     },
                                     child: Container(
-                                      padding:
-                                          EdgeInsets.symmetric(vertical: 12),
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 12),
                                       decoration: BoxDecoration(
                                         color: _selectedGender == 'male'
+                                            // ignore: deprecated_member_use
                                             ? Colors.blue.withOpacity(0.1)
+                                            // ignore: deprecated_member_use
                                             : Colors.grey.withOpacity(0.05),
                                         borderRadius: BorderRadius.circular(10),
                                         border: Border.all(
@@ -283,7 +290,7 @@ class _SignUpViewState extends State<SignUpView> {
                                                 ? Colors.blue
                                                 : Colors.grey,
                                           ),
-                                          SizedBox(width: 8),
+                                          const SizedBox(width: 8),
                                           Text(
                                             'Male',
                                             style: GoogleFonts.poppins(
@@ -301,7 +308,7 @@ class _SignUpViewState extends State<SignUpView> {
                                     ),
                                   ),
                                 ),
-                                SizedBox(width: 16),
+                                const SizedBox(width: 16),
                                 Expanded(
                                   child: GestureDetector(
                                     onTap: () {
@@ -310,11 +317,13 @@ class _SignUpViewState extends State<SignUpView> {
                                       });
                                     },
                                     child: Container(
-                                      padding:
-                                          EdgeInsets.symmetric(vertical: 12),
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 12),
                                       decoration: BoxDecoration(
                                         color: _selectedGender == 'female'
+                                            // ignore: deprecated_member_use
                                             ? Colors.pink.withOpacity(0.1)
+                                            // ignore: deprecated_member_use
                                             : Colors.grey.withOpacity(0.05),
                                         borderRadius: BorderRadius.circular(10),
                                         border: Border.all(
@@ -334,7 +343,7 @@ class _SignUpViewState extends State<SignUpView> {
                                                 ? Colors.pink
                                                 : Colors.grey,
                                           ),
-                                          SizedBox(width: 8),
+                                          const SizedBox(width: 8),
                                           Text(
                                             'Female',
                                             style: GoogleFonts.poppins(
@@ -354,7 +363,7 @@ class _SignUpViewState extends State<SignUpView> {
                                 ),
                               ],
                             ),
-                            SizedBox(height: 16),
+                            const SizedBox(height: 16),
 
                             // Date of birth - improved UI
                             Text(
@@ -364,20 +373,20 @@ class _SignUpViewState extends State<SignUpView> {
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
-                            SizedBox(height: 8),
+                            const SizedBox(height: 8),
                             GestureDetector(
                               onTap: () async {
                                 final DateTime? picked = await showDatePicker(
                                   context: context,
                                   initialDate: _selectedDate ??
-                                      DateTime.now()
-                                          .subtract(Duration(days: 365 * 18)),
+                                      DateTime.now().subtract(
+                                          const Duration(days: 365 * 18)),
                                   firstDate: DateTime(1950),
                                   lastDate: DateTime.now(),
                                   builder: (context, child) {
                                     return Theme(
                                       data: Theme.of(context).copyWith(
-                                        colorScheme: ColorScheme.light(
+                                        colorScheme: const ColorScheme.light(
                                           primary: Colors.blue,
                                           onPrimary: Colors.white,
                                           surface: Colors.white,
@@ -397,9 +406,10 @@ class _SignUpViewState extends State<SignUpView> {
                                 }
                               },
                               child: Container(
-                                padding: EdgeInsets.symmetric(
+                                padding: const EdgeInsets.symmetric(
                                     horizontal: 16, vertical: 12),
                                 decoration: BoxDecoration(
+                                  // ignore: deprecated_member_use
                                   color: Colors.grey.withOpacity(0.05),
                                   borderRadius: BorderRadius.circular(15),
                                   border: Border.all(
@@ -418,7 +428,7 @@ class _SignUpViewState extends State<SignUpView> {
                                           : Colors.grey,
                                       size: 18,
                                     ),
-                                    SizedBox(width: 12),
+                                    const SizedBox(width: 12),
                                     Expanded(
                                       child: Text(
                                         _selectedDate != null
@@ -435,7 +445,7 @@ class _SignUpViewState extends State<SignUpView> {
                                 ),
                               ),
                             ),
-                            SizedBox(height: 24),
+                            const SizedBox(height: 24),
 
                             // Translator checkbox
                             Row(
@@ -461,7 +471,7 @@ class _SignUpViewState extends State<SignUpView> {
 
                             // Translator fields
                             if (_isTranslator) ...[
-                              SizedBox(height: 24),
+                              const SizedBox(height: 24),
                               Text(
                                 "Translator Information",
                                 style: GoogleFonts.poppins(
@@ -470,7 +480,7 @@ class _SignUpViewState extends State<SignUpView> {
                                   color: Colors.black87,
                                 ),
                               ),
-                              SizedBox(height: 16),
+                              const SizedBox(height: 16),
 
                               // Languages field
                               CustomTextField(
@@ -480,7 +490,7 @@ class _SignUpViewState extends State<SignUpView> {
                                     "Enter languages you can translate (e.g., English, Arabic)",
                                 isPassword: false,
                               ),
-                              SizedBox(height: 16),
+                              const SizedBox(height: 16),
 
                               // Experience years field
                               CustomTextField(
@@ -491,7 +501,7 @@ class _SignUpViewState extends State<SignUpView> {
                                     true, // ⬅️ اجعلها true لقبول الأرقام فقط
                               ),
 
-                              SizedBox(height: 16),
+                              const SizedBox(height: 16),
 
                               // Bio field
                               CustomTextField(
@@ -501,7 +511,7 @@ class _SignUpViewState extends State<SignUpView> {
                                 isPassword: false,
                                 maxLines: 3,
                               ),
-                              SizedBox(height: 16),
+                              const SizedBox(height: 16),
 
                               // Types field
                               CustomTextField(
@@ -511,7 +521,7 @@ class _SignUpViewState extends State<SignUpView> {
                                     "Enter type of translation you offer (e.g., Legal, Medical)",
                                 isPassword: false,
                               ),
-                              SizedBox(height: 16),
+                              const SizedBox(height: 16),
 
                               // Location field
                               CustomTextField(
@@ -520,7 +530,7 @@ class _SignUpViewState extends State<SignUpView> {
                                 hintText: "Enter your location",
                                 isPassword: false,
                               ),
-                              SizedBox(height: 16),
+                              const SizedBox(height: 16),
 
                               // Certifications file picker
                               Text(
@@ -530,7 +540,7 @@ class _SignUpViewState extends State<SignUpView> {
                                   fontWeight: FontWeight.w500,
                                 ),
                               ),
-                              SizedBox(height: 8),
+                              const SizedBox(height: 8),
                               GestureDetector(
                                 onTap: () async {
                                   FilePickerResult? result =
@@ -549,9 +559,10 @@ class _SignUpViewState extends State<SignUpView> {
                                   }
                                 },
                                 child: Container(
-                                  padding: EdgeInsets.symmetric(
+                                  padding: const EdgeInsets.symmetric(
                                       horizontal: 16, vertical: 12),
                                   decoration: BoxDecoration(
+                                    // ignore: deprecated_member_use
                                     color: Colors.grey.withOpacity(0.05),
                                     borderRadius: BorderRadius.circular(15),
                                     border: Border.all(
@@ -570,7 +581,7 @@ class _SignUpViewState extends State<SignUpView> {
                                             : Colors.grey,
                                         size: 18,
                                       ),
-                                      SizedBox(width: 12),
+                                      const SizedBox(width: 12),
                                       Expanded(
                                         child: Text(
                                           _certificationsFile != null
@@ -588,7 +599,7 @@ class _SignUpViewState extends State<SignUpView> {
                                   ),
                                 ),
                               ),
-                              SizedBox(height: 16),
+                              const SizedBox(height: 16),
 
                               // CV file picker
                               Text(
@@ -598,7 +609,7 @@ class _SignUpViewState extends State<SignUpView> {
                                   fontWeight: FontWeight.w500,
                                 ),
                               ),
-                              SizedBox(height: 8),
+                              const SizedBox(height: 8),
                               GestureDetector(
                                 onTap: () async {
                                   FilePickerResult? result =
@@ -615,9 +626,10 @@ class _SignUpViewState extends State<SignUpView> {
                                   }
                                 },
                                 child: Container(
-                                  padding: EdgeInsets.symmetric(
+                                  padding: const EdgeInsets.symmetric(
                                       horizontal: 16, vertical: 12),
                                   decoration: BoxDecoration(
+                                    // ignore: deprecated_member_use
                                     color: Colors.grey.withOpacity(0.05),
                                     borderRadius: BorderRadius.circular(15),
                                     border: Border.all(
@@ -636,7 +648,7 @@ class _SignUpViewState extends State<SignUpView> {
                                             : Colors.grey,
                                         size: 18,
                                       ),
-                                      SizedBox(width: 12),
+                                      const SizedBox(width: 12),
                                       Expanded(
                                         child: Text(
                                           _cvFile != null
@@ -656,7 +668,7 @@ class _SignUpViewState extends State<SignUpView> {
                               ),
                             ],
 
-                            SizedBox(height: 24),
+                            const SizedBox(height: 24),
 
                             // Security Section
                             Text(
@@ -667,7 +679,7 @@ class _SignUpViewState extends State<SignUpView> {
                                 color: Colors.black87,
                               ),
                             ),
-                            SizedBox(height: 16),
+                            const SizedBox(height: 16),
 
                             // Password field
                             CustomTextField(
@@ -676,7 +688,7 @@ class _SignUpViewState extends State<SignUpView> {
                               hintText: "Enter your password",
                               isPassword: true,
                             ),
-                            SizedBox(height: 16),
+                            const SizedBox(height: 16),
 
                             // Confirm Password field
                             CustomTextField(
@@ -685,14 +697,14 @@ class _SignUpViewState extends State<SignUpView> {
                               hintText: "Confirm your password",
                               isPassword: true,
                             ),
-                            SizedBox(height: 32),
+                            const SizedBox(height: 32),
 
                             // Signup button
                             state is SignupLoading || state is SignupRetrying
                                 ? Center(
                                     child: Column(
                                       children: [
-                                        CircularProgressIndicator(),
+                                        const CircularProgressIndicator(),
                                         if (state is SignupRetrying)
                                           Padding(
                                             padding:
@@ -749,8 +761,8 @@ class _SignUpViewState extends State<SignUpView> {
                                       },
                                       style: ElevatedButton.styleFrom(
                                         backgroundColor: Colors.blue,
-                                        padding:
-                                            EdgeInsets.symmetric(vertical: 16),
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 16),
                                         shape: RoundedRectangleBorder(
                                           borderRadius:
                                               BorderRadius.circular(15),
@@ -815,7 +827,7 @@ class _SignUpViewState extends State<SignUpView> {
         _mobileController.text.isEmpty ||
         _selectedDate == null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text('Please fill in all required fields'),
           backgroundColor: Colors.red,
         ),
@@ -825,7 +837,7 @@ class _SignUpViewState extends State<SignUpView> {
 
     if (_passwordController.text != _confirmPasswordController.text) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text('Passwords do not match'),
           backgroundColor: Colors.red,
         ),
@@ -843,7 +855,7 @@ class _SignUpViewState extends State<SignUpView> {
           _certificationsFile == null ||
           _cvFile == null) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
+          const SnackBar(
             content: Text(
                 'Please fill in all translator fields and upload required documents'),
             backgroundColor: Colors.red,

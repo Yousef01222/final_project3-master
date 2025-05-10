@@ -1,10 +1,10 @@
 import 'dart:developer';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grade3/core/services/token_storage_service.dart';
 import 'package:grade3/features/auth/data/service/auth_service.dart';
 import 'package:grade3/features/auth/logic/login_state.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:jwt_decode/jwt_decode.dart';
 
 class LoginCubit extends Cubit<LoginState> {
   LoginCubit() : super(LoginInitial());
@@ -16,22 +16,28 @@ class LoginCubit extends Cubit<LoginState> {
       final response =
           await AuthService.login(email: email, password: password);
 
-      if (response.message == 'User authenticated successfully' &&
-          response.token != null) {
-        // Store the token
-        // await TokenStorageService.saveToken(response.token!);
-        // prefs.setString('reciveId', response.);
-        await TokenStorageService.saveToken(response.token!, response.userId!);
+      final token = response.token;
+      if (token != null && token.isNotEmpty) {
+        Map<String, dynamic> payload = Jwt.parseJwt(token);
+        final userId = payload['_id']?.toString();
 
-        log('Token saved: ${response.token}');
-        log('Login successful: ${response.message}');
-        emit(LoginSuccess(response));
+        if (userId != null && userId.isNotEmpty) {
+          await TokenStorageService.saveToken(token.toString(), userId);
+          prefs.setString('reciveId', userId);
+          log('Login successful. Token: $token');
+          log('Extracted userId from token: $userId');
+          emit(LoginSuccess(response));
+        } else {
+          log('Login failed: User ID is null');
+          emit(LoginError('Login failed: User ID is null'));
+        }
       } else {
-        log('Login failed: ${response.message}');
-        emit(LoginError(response.message));
+        log('Login failed: Token is null');
+        emit(LoginError('Login failed: Token is null'));
       }
     } catch (e) {
-      emit(LoginError('Error: $e'));
+      log('Login error: $e');
+      emit(LoginError('Login error: $e'));
     }
   }
 
@@ -45,7 +51,6 @@ class LoginCubit extends Cubit<LoginState> {
     }
   }
 
-  // Check if user is already logged in
   Future<void> checkLoginStatus() async {
     try {
       final isLoggedIn = await TokenStorageService.isLoggedIn();

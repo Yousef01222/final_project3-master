@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:grade3/features/company_profile/presentation/views/widgets/job_card.dart';
 
@@ -42,7 +44,7 @@ class _AvailableJobsState extends State<AvailableJobs> {
         throw Exception('Failed to load jobs');
       }
     } catch (e) {
-      print('Error: $e');
+      log('Error: $e');
       setState(() => isLoading = false);
     }
   }
@@ -89,7 +91,12 @@ class _AvailableJobsState extends State<AvailableJobs> {
                     child: Center(child: CircularProgressIndicator()))
                 : Expanded(
                     child: filteredJobs.isEmpty
-                        ? const Center(child: Text('No jobs found.'))
+                        ? const Center(
+                            child: Text(
+                            'No Available Jobs for This Company.',
+                            style: TextStyle(
+                                fontSize: 15, fontWeight: FontWeight.bold),
+                          ))
                         : ListView.builder(
                             itemCount: filteredJobs.length,
                             itemBuilder: (context, index) {

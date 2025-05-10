@@ -1,7 +1,6 @@
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grade3/features/home/data/models/company_model.dart';
 import 'package:grade3/features/home/data/repos/home_repo.dart';
-import 'package:meta/meta.dart';
 
 part 'fetch_companies_state.dart';
 

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:grade3/core/utils/app_router.dart'; // تأكد من أن المسار صحيح
 import 'package:grade3/features/auth/data/service/auth_service.dart';
 
 class SendCodeView extends StatefulWidget {
@@ -9,6 +7,7 @@ class SendCodeView extends StatefulWidget {
   final String email;
 
   @override
+  // ignore: library_private_types_in_public_api
   _SendCodeViewState createState() => _SendCodeViewState();
 }
 
@@ -62,7 +61,7 @@ class _SendCodeViewState extends State<SendCodeView> {
       // Show success message
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
+          const SnackBar(
             content: Text('Email verified successfully!'),
             backgroundColor: Colors.green,
             duration: Duration(seconds: 1),
@@ -70,8 +69,9 @@ class _SendCodeViewState extends State<SendCodeView> {
         );
 
         // Pop back to login page after short delay
-        Future.delayed(Duration(milliseconds: 800), () {
+        Future.delayed(const Duration(milliseconds: 800), () {
           // Pop until we get back to the login screen
+          // ignore: use_build_context_synchronously
           Navigator.of(context).popUntil((route) => route.isFirst);
         });
       }
@@ -90,7 +90,7 @@ class _SendCodeViewState extends State<SendCodeView> {
     return Scaffold(
       body: Container(
         width: double.infinity,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
@@ -107,7 +107,8 @@ class _SendCodeViewState extends State<SendCodeView> {
                   child: Row(
                     children: [
                       IconButton(
-                        icon: Icon(Icons.arrow_back_ios, color: Colors.black87),
+                        icon: const Icon(Icons.arrow_back_ios,
+                            color: Colors.black87),
                         onPressed: () => Navigator.of(context).pop(),
                       ),
                       Expanded(
@@ -122,7 +123,7 @@ class _SendCodeViewState extends State<SendCodeView> {
                           ),
                         ),
                       ),
-                      SizedBox(width: 48), // Balance the header
+                      const SizedBox(width: 48), // Balance the header
                     ],
                   ),
                 ),
@@ -131,7 +132,7 @@ class _SendCodeViewState extends State<SendCodeView> {
                 Container(
                   width: 120,
                   height: 120,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Colors.white,
                     shape: BoxShape.circle,
                     boxShadow: [
@@ -142,27 +143,28 @@ class _SendCodeViewState extends State<SendCodeView> {
                       ),
                     ],
                   ),
-                  child: Icon(
+                  child: const Icon(
                     Icons.email_outlined,
                     size: 70,
                     color: Colors.blue,
                   ),
                 ),
 
-                SizedBox(height: 24),
+                const SizedBox(height: 24),
 
                 // Main content card
                 Container(
-                  margin: EdgeInsets.fromLTRB(16, 0, 16, 16),
-                  padding: EdgeInsets.all(24),
+                  margin: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                  padding: const EdgeInsets.all(24),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(20),
                     boxShadow: [
                       BoxShadow(
+                        // ignore: deprecated_member_use
                         color: Colors.black.withOpacity(0.05),
                         blurRadius: 20,
-                        offset: Offset(0, 10),
+                        offset: const Offset(0, 10),
                       ),
                     ],
                   ),
@@ -177,7 +179,7 @@ class _SendCodeViewState extends State<SendCodeView> {
                           color: Colors.black87,
                         ),
                       ),
-                      SizedBox(height: 8),
+                      const SizedBox(height: 8),
                       Text(
                         "Enter the 6-digit code sent to",
                         style: GoogleFonts.poppins(
@@ -195,7 +197,7 @@ class _SendCodeViewState extends State<SendCodeView> {
                         ),
                         textAlign: TextAlign.center,
                       ),
-                      SizedBox(height: 32),
+                      const SizedBox(height: 32),
 
                       // Code input fields
                       Row(
@@ -207,7 +209,7 @@ class _SendCodeViewState extends State<SendCodeView> {
                       ),
 
                       if (_errorMessage != null) ...[
-                        SizedBox(height: 16),
+                        const SizedBox(height: 16),
                         Text(
                           _errorMessage!,
                           style: GoogleFonts.poppins(
@@ -218,18 +220,19 @@ class _SendCodeViewState extends State<SendCodeView> {
                         ),
                       ],
 
-                      SizedBox(height: 32),
+                      const SizedBox(height: 32),
 
                       // Verify button
                       _isLoading
-                          ? CircularProgressIndicator()
+                          ? const CircularProgressIndicator()
                           : SizedBox(
                               width: double.infinity,
                               child: ElevatedButton(
                                 onPressed: _sendCode,
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: Colors.blue,
-                                  padding: EdgeInsets.symmetric(vertical: 16),
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 16),
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(15),
                                   ),
@@ -246,7 +249,7 @@ class _SendCodeViewState extends State<SendCodeView> {
                               ),
                             ),
 
-                      SizedBox(height: 24),
+                      const SizedBox(height: 24),
 
                       // Resend code option
                       Row(
@@ -263,7 +266,7 @@ class _SendCodeViewState extends State<SendCodeView> {
                             onPressed: () {
                               // Add resend code functionality here
                               ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
+                                const SnackBar(
                                   content:
                                       Text('Resending verification code...'),
                                 ),
@@ -301,9 +304,10 @@ class _SendCodeViewState extends State<SendCodeView> {
         borderRadius: BorderRadius.circular(10),
         boxShadow: [
           BoxShadow(
+            // ignore: deprecated_member_use
             color: Colors.black.withOpacity(0.05),
             blurRadius: 10,
-            offset: Offset(0, 2),
+            offset: const Offset(0, 2),
           ),
         ],
       ),
@@ -317,7 +321,7 @@ class _SendCodeViewState extends State<SendCodeView> {
           fontSize: 20,
           fontWeight: FontWeight.w600,
         ),
-        decoration: InputDecoration(
+        decoration: const InputDecoration(
           counterText: '',
           border: InputBorder.none,
           contentPadding: EdgeInsets.zero,

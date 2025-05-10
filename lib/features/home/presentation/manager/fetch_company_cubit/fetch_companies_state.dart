@@ -1,6 +1,5 @@
 part of 'fetch_companies_cubit.dart';
 
-@immutable
 sealed class FetchCompaniesState {}
 
 final class FetchCompaniesInitial extends FetchCompaniesState {}

@@ -56,23 +56,19 @@ class AuthService {
 
         // Send the request
         final streamedResponse =
-            await request.send().timeout(Duration(seconds: 30));
+            await request.send().timeout(const Duration(seconds: 30));
         final response = await http.Response.fromStream(streamedResponse);
-
-        print('Signup response status: ${response.statusCode}');
-        print('Signup response body: ${response.body}');
 
         if (response.statusCode == 201) {
           return SignupResponseModel.fromJson(
               json.decode(response.body), email);
         } else {
           // Try without the image if we get a server error
-          print('Failed with image upload. Trying without image...');
+
           return await _signupWithoutImage(name, email, password,
               confirmPassword, mobileNumber, gender, dob);
         }
       } catch (e) {
-        print('Exception during signup with image: $e');
         // Fall back to signup without image
         return await _signupWithoutImage(
             name, email, password, confirmPassword, mobileNumber, gender, dob);
@@ -113,11 +109,8 @@ class AuthService {
     );
 
     if (response.statusCode == 201) {
-      print('Response data: ${response.body}');
       return SignupResponseModel.fromJson(json.decode(response.body), email);
     } else {
-      print('Response data: ${response.body}');
-      print('Response status code: ${response.statusCode}');
       throw Exception('Failed to signup: ${response.reasonPhrase}');
     }
   }
@@ -178,20 +171,13 @@ class AuthService {
       final streamedResponse = await request.send();
       final response = await http.Response.fromStream(streamedResponse);
 
-      print('Translator API response code: ${response.statusCode}');
-      print('Translator API response body: ${response.body}');
-
       if (response.statusCode == 201 || response.statusCode == 200) {
-        print('Translator profile created: ${response.body}');
         return json.decode(response.body);
       } else {
-        print('Failed to create translator profile: ${response.body}');
-        print('Response status code: ${response.statusCode}');
         throw Exception(
             'Failed to create translator profile: ${response.reasonPhrase} - ${response.body}');
       }
     } catch (e) {
-      print('Exception during translator profile creation: $e');
       throw Exception('Failed to create translator profile: $e');
     }
   }
@@ -271,16 +257,12 @@ class AuthService {
         }),
       );
 
-      print('Direct API call response code: ${response.statusCode}');
-      print('Direct API call response body: ${response.body}');
-
       if (response.statusCode == 201 || response.statusCode == 200) {
         return json.decode(response.body);
       } else {
         throw Exception('Failed: ${response.reasonPhrase} - ${response.body}');
       }
     } catch (e) {
-      print('Exception during direct API call: $e');
       throw Exception('Failed to create translator profile: $e');
     }
   }

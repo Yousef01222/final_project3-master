@@ -19,6 +19,7 @@ class HomeViewBody extends StatelessWidget {
       onRefresh: () async {
         // Refresh both translators and companies data
         await context.read<FetchTranslatorsCubit>().fetchTranslators();
+        // ignore: use_build_context_synchronously
         await context.read<FetchCompaniesCubit>().fetchCompanies();
       },
       child: CustomScrollView(
@@ -42,6 +43,7 @@ class HomeViewBody extends StatelessWidget {
                         context,
                         baseFontSize: 17,
                       ),
+                      // ignore: deprecated_member_use
                       color: Colors.black.withOpacity(0.8),
                       fontWeight: FontWeight.w600,
                     ),
@@ -56,6 +58,7 @@ class HomeViewBody extends StatelessWidget {
                         context,
                         baseFontSize: 17,
                       ),
+                      // ignore: deprecated_member_use
                       color: Colors.black.withOpacity(0.8),
                       fontWeight: FontWeight.w600,
                     ),
@@ -70,6 +73,7 @@ class HomeViewBody extends StatelessWidget {
                         context,
                         baseFontSize: 17,
                       ),
+                      // ignore: deprecated_member_use
                       color: Colors.black.withOpacity(0.8),
                       fontWeight: FontWeight.w600,
                     ),

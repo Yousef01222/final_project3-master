@@ -212,6 +212,7 @@ class TranslatorProfileView extends StatelessWidget {
                     context,
                     baseFontSize: 22,
                   ),
+                  // ignore: deprecated_member_use
                   color: Colors.black.withOpacity(0.9),
                   fontWeight: FontWeight.w600,
                 ),
@@ -229,6 +230,7 @@ class TranslatorProfileView extends StatelessWidget {
                     context,
                     baseFontSize: 21,
                   ),
+                  // ignore: deprecated_member_use
                   color: Colors.black.withOpacity(0.9),
                   fontWeight: FontWeight.w500,
                 ),
@@ -270,6 +272,7 @@ class TranslatorProfileView extends StatelessWidget {
                         context,
                         baseFontSize: 18,
                       ),
+                      // ignore: deprecated_member_use
                       color: Colors.black.withOpacity(0.8),
                       fontWeight: FontWeight.w600,
                     ),
@@ -286,6 +289,7 @@ class TranslatorProfileView extends StatelessWidget {
                     context,
                     baseFontSize: 15,
                   ),
+                  // ignore: deprecated_member_use
                   color: Colors.black.withOpacity(0.5),
                   fontWeight: FontWeight.w400,
                 ),
@@ -300,6 +304,7 @@ class TranslatorProfileView extends StatelessWidget {
                         context,
                         baseFontSize: 18,
                       ),
+                      // ignore: deprecated_member_use
                       color: Colors.black.withOpacity(0.8),
                       fontWeight: FontWeight.w600,
                     ),
@@ -318,6 +323,7 @@ class TranslatorProfileView extends StatelessWidget {
                           context,
                           baseFontSize: 14.5,
                         ),
+                        // ignore: deprecated_member_use
                         color: Colors.black.withOpacity(0.9),
                         fontWeight: FontWeight.w500,
                       ),

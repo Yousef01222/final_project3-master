@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -99,10 +101,10 @@ class _LoginViewState extends State<LoginView> {
                           style: GoogleFonts.poppins()),
                       TextButton(
                         onPressed: () {
-                          print("Navigation to SignUp triggered");
+                          log("Navigation to SignUp triggered");
                           Navigator.of(context).push(
                             MaterialPageRoute(
-                                builder: (context) => SignUpView()),
+                                builder: (context) => const SignUpView()),
                           );
                         },
                         child: Text("Sign Up",

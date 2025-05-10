@@ -47,7 +47,7 @@ abstract class AppRouter {
       ),
       GoRoute(
         path: signUpView,
-        builder: (context, state) => SignUpView(),
+        builder: (context, state) => const SignUpView(),
       ),
       GoRoute(
         path: homeView,
@@ -76,7 +76,7 @@ abstract class AppRouter {
       ),
       GoRoute(
         path: chatView,
-        builder: (context, state) => ChatView(),
+        builder: (context, state) => const ChatView(),
       ),
     ],
   );

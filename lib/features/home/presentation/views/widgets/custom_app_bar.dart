@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -40,7 +41,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
         }
       }
     } catch (e) {
-      print('Error loading profile image in AppBar: $e');
+      log('Error loading profile image in AppBar: $e');
     }
   }
 

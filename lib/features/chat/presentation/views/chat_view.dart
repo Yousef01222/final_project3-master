@@ -9,6 +9,7 @@ class ChatView extends StatefulWidget {
   const ChatView({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _ChatViewState createState() => _ChatViewState();
 }
 
@@ -98,7 +99,7 @@ class _ChatViewState extends State<ChatView> {
               onChanged: _filterChats, // Filter chats as the user types
               decoration: InputDecoration(
                 hintText: 'Search by name...',
-                prefixIcon: Icon(Icons.search),
+                prefixIcon: const Icon(Icons.search),
                 filled: true,
                 fillColor: Colors.grey.shade200, // Light background for search
                 border: OutlineInputBorder(

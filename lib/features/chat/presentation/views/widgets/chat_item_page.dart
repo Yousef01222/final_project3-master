@@ -50,6 +50,7 @@ class _ChatItemPageState extends State<ChatItemPage> {
     currentUserId = await TokenStorageService.getUserId();
 
     if (token == null || widget.recivedId.isEmpty) {
+      // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
             content: Text('خطأ: لم يتم العثور على التوكن أو رقم المتلقي')),
@@ -154,6 +155,7 @@ class _ChatItemPageState extends State<ChatItemPage> {
 
     if (success) {
       _messageController.clear();
+      // ignore: use_build_context_synchronously
       FocusScope.of(context).unfocus();
 
       await _fetchChats();
@@ -162,6 +164,7 @@ class _ChatItemPageState extends State<ChatItemPage> {
       setState(() {
         _messages.removeLast();
       });
+      // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text("فشل إرسال الرسالة")),
       );

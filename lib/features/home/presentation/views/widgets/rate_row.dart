@@ -30,6 +30,7 @@ class RateRow extends StatelessWidget {
               context,
               baseFontSize: 14,
             ),
+            // ignore: deprecated_member_use
             color: Colors.black26.withOpacity(0.8),
             fontWeight: FontWeight.w400,
           ),

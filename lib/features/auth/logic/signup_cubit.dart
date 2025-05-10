@@ -27,18 +27,11 @@ class SignupCubit extends Cubit<SignupState> {
     required String type,
     required int experienceYears,
   }) async {
-    print('SignupCubit: signup method called');
     emit(SignupLoading());
-    print('SignupCubit: SignupLoading state emitted');
 
     try {
-      print('SignupCubit: Calling authService.signup');
-      print(
-          'SignupCubit: Params - name: $name, email: $email, gender: $gender, dob: $dob');
-
       if (profileImage != null) {
-        print(
-            'SignupCubit: Profile image included, size: ${await profileImage.length()} bytes');
+        log('SignupCubit: Profile image included, size: ${await profileImage.length()} bytes');
       }
 
       final response = await authService.signup(
@@ -55,12 +48,11 @@ class SignupCubit extends Cubit<SignupState> {
       // Reset retry count on successful signup
       _retryCount = 0;
 
-      print(
-          'SignupCubit: Signup successful, got response: ${response.message}');
+      log('SignupCubit: Signup successful, got response: ${response.message}');
       emit(SignupSuccess(response));
-      print('SignupCubit: SignupSuccess state emitted');
+      log('SignupCubit: SignupSuccess state emitted');
     } catch (e) {
-      print('SignupCubit: Error occurred during signup: $e');
+      log('SignupCubit: Error occurred during signup: $e');
       log(e.toString(), name: 'Signup Error');
 
       // Check if it's a timeout or server error (which might be temporary)
@@ -70,8 +62,7 @@ class SignupCubit extends Cubit<SignupState> {
               e.toString().contains('502')) &&
           _retryCount < _maxRetries) {
         _retryCount++;
-        print(
-            'SignupCubit: Retrying signup (Attempt $_retryCount of $_maxRetries)');
+        log('SignupCubit: Retrying signup (Attempt $_retryCount of $_maxRetries)');
 
         // Emit a retry state
         emit(SignupRetrying(
@@ -80,7 +71,7 @@ class SignupCubit extends Cubit<SignupState> {
             errorMessage: "Server is busy. Retrying automatically..."));
 
         // Wait a bit before retrying
-        await Future.delayed(Duration(seconds: 2));
+        await Future.delayed(const Duration(seconds: 2));
 
         // Retry signup without profile image if this was an image-related error
         bool imageError = e.toString().toLowerCase().contains('image') ||
@@ -103,8 +94,7 @@ class SignupCubit extends Cubit<SignupState> {
           (e.toString().contains('Internal Server Error') ||
               e.toString().toLowerCase().contains('image'))) {
         // If error seems related to image, try again without it
-        print(
-            'SignupCubit: Image upload error detected, retrying without image');
+        log('SignupCubit: Image upload error detected, retrying without image');
 
         emit(SignupRetrying(
             currentAttempt: 1,
@@ -112,7 +102,7 @@ class SignupCubit extends Cubit<SignupState> {
             errorMessage:
                 "Image upload failed. Retrying without profile picture..."));
 
-        await Future.delayed(Duration(seconds: 1));
+        await Future.delayed(const Duration(seconds: 1));
 
         return signup(
           name: name,
@@ -142,7 +132,7 @@ class SignupCubit extends Cubit<SignupState> {
         }
 
         emit(SignupError(errorMessage));
-        print('SignupCubit: SignupError state emitted');
+        log('SignupCubit: SignupError state emitted');
       }
     }
   }
@@ -158,11 +148,11 @@ class SignupCubit extends Cubit<SignupState> {
     required File? cv,
     required String location,
   }) async {
-    print('SignupCubit: createTranslator method called');
+    log('SignupCubit: createTranslator method called');
     emit(TranslatorCreationLoading());
 
     try {
-      print('SignupCubit: Calling authService.createTranslator');
+      log('SignupCubit: Calling authService.createTranslator');
       dynamic response;
 
       // First try the multipart approach for file uploads
@@ -178,9 +168,9 @@ class SignupCubit extends Cubit<SignupState> {
           location: location,
         );
       } catch (e) {
-        print('Multipart approach failed: $e');
+        log('Multipart approach failed: $e');
         // If multipart fails, try the direct JSON approach
-        print('Trying direct JSON approach without files');
+        log('Trying direct JSON approach without files');
         response = await authService.createTranslatorDirect(
           email: email,
           languages: languages,
@@ -191,10 +181,10 @@ class SignupCubit extends Cubit<SignupState> {
         );
       }
 
-      print('SignupCubit: Translator profile created successfully');
+      log('SignupCubit: Translator profile created successfully');
       emit(TranslatorCreationSuccess(response));
     } catch (e) {
-      print('SignupCubit: Error occurred during translator creation: $e');
+      log('SignupCubit: Error occurred during translator creation: $e');
       log(e.toString(), name: 'Translator Creation Error');
 
       String errorMessage = e.toString();

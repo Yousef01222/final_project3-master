@@ -21,6 +21,7 @@ class WelcomWidget extends StatelessWidget {
               context,
               baseFontSize: 15,
             ),
+            // ignore: deprecated_member_use
             color: Colors.black.withOpacity(0.7),
             fontWeight: FontWeight.w500,
           ),
@@ -33,6 +34,7 @@ class WelcomWidget extends StatelessWidget {
               context,
               baseFontSize: 16,
             ),
+            // ignore: deprecated_member_use
             color: Colors.black.withOpacity(0.85),
             fontWeight: FontWeight.w600,
           ),

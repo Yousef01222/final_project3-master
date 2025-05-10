@@ -1,7 +1,6 @@
 // lib/cubit/confirm_email_state.dart
 part of 'confirm_email_cubit.dart';
 
-@immutable
 abstract class ConfirmEmailState {}
 
 class ConfirmEmailInitial extends ConfirmEmailState {}

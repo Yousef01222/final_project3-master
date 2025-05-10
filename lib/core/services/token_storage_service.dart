@@ -45,8 +45,6 @@ class TokenStorageService {
     await prefs.setString(_tokenKey, token);
     await prefs.setString('userId', userId);
     await prefs.setBool(_isLoggedInKey, true);
-    print('Token saved: $token');
-    print('UserId saved: $userId');
   }
 
   // دالة لاسترجاع الـ User ID
